@@ -40,9 +40,7 @@ io.on('connection', async function (socket) {
                         Transactions: lastFiveTransactions
                     });
                 }
-            } else
-                socket.emit('dbError', 'Txs not found');
-
+            }
             let lastFiveBlocks = await Block.find({}).sort({
                _id: -1
             }).limit(5)
@@ -60,10 +58,9 @@ io.on('connection', async function (socket) {
                         Height: lastFiveBlocks
                     });
                 }
-            } else
-                socket.emit('dbError', 'Block or node not found');
+            }
         } catch (ex) {
-            socket.emit('generalError', `${ex.message}`);
+            initialBlock = false
         }
     })
 })
