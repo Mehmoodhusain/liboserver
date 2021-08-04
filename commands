@@ -1,0 +1,17 @@
+Gnome tweaks: sudo apt install gnome-tweak-tool
+Second click minimize: gsettings set org.gnome.shell.extensions.dash-to-dock click-action 'minimize'
+Download Google Chrome: wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+Install Google Chrome: sudo dpkg -i google-chrome-stable_current_amd64.deb
+Install Node: sudo apt install nodejs
+Install NPM: sudo apt install npm
+Install Wine: wget -nc https://dl.winehq.org/wine-builds/winehq.key
+		sudo apt-key add winehq.key
+		sudo add-apt-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ focal main'
+		sudo apt install --install-recommends winehq-stable
+how to install cisco anyconnect: 
+sudo apt-get install network-manager-openconnect
+go to url : https://www.socsci.uci.edu/~jstern/uci_vpn_ubuntu/
+extract tar.gz : 
+go to extracted folder and open in terminal vpn folder and 
+sudo sudo ./vpn_install.sh
+how to install rdb: https://www.e2enetworks.com/help/knowledge-base/how-to-install-remote-desktop-xrdp-on-ubuntu-18-04/
