@@ -1,3 +1,7 @@
+// IMPORT FILES
+const config = require("../config/index")
+const {Node} = require("./node")
+
 // IMPORT LIBRARIES
 const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate-v2');
@@ -100,6 +104,19 @@ const block = new mongoose.Schema({
       }]
     }
   },
+});
+block.post('save', async function (doc) {
+  let lastFiveBlocks = await Block.find({}).sort({
+    _id: -1
+  }).limit(5)
+  let node = await Node.findOne()
+  config.Emmiter.emit('dashboard', {
+    Network: node,
+    'Latest Blocks': lastFiveBlocks[0]
+  });
+  config.Emmiter.emit('latestBlocks', {
+    Height: lastFiveBlocks
+  });
 });
 block.plugin(mongoosePaginate);
 const Block = mongoose.model('Block', block);

@@ -1,3 +1,6 @@
+// IMPORT FILES
+const config = require("../config/index")
+
 // IMPORT LIBRARIES
 const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate-v2');
@@ -71,6 +74,15 @@ const transaction = new mongoose.Schema({
       value: String,
     }, ]
   }, ]
+});
+transaction.post('save', async function (doc) {
+  let lastFiveTransactions = await Transaction.find({}).sort({
+    _id: -1
+  }).limit(5)
+  tempId = lastFiveTransactions[0]._id
+  config.Emmiter.emit('latestTransactions', {
+    Transactions: lastFiveTransactions
+  });
 });
 transaction.plugin(mongoosePaginate);
 const Transaction = mongoose.model('transaction', transaction);

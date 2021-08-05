@@ -30,11 +30,11 @@ module.exports = {
       _id: -1
     }).limit(1);
     if (prev.length == 0) {
-      let blockHeight = 0
+      let blockHeight = 3540000
       blockCron(blockHeight)
     } else {
-      let blockHeight = parseInt(prev[0].block.header.height)
-      console.log("\t\t\tBLOCK DOC FOUND WIT MAX HEIGHT: ", blockHeight)
+      let blockHeight = parseInt(prev[0].block.header.height)+1
+      console.log("\t\t\tBLOCK DOC FOUND WIT MAX COUNT: ", blockHeight-1)
       blockCron(blockHeight)
     }
   },
@@ -48,13 +48,16 @@ module.exports = {
     if (!supp) {
       console.log("SUPPLY AT INITIAL POINT")
       supplyCron(initialSupply, tempSupply)
-    } else {
+    } 
+    else {
       tempSupply = supp.height
       console.log("\t\t\tSUPPLY DOC FOUND HEIGHT: ", parseInt(tempSupply))
       mongoose.connection.db.dropCollection('supplies', function (err, result) {
+        console.log("\t\t\tSUPPLY COLLECTION DELETED")
         return 0
       });
       supplyCron(initialSupply, tempSupply)
+      
     }
   },
 
@@ -68,11 +71,12 @@ module.exports = {
       console.log("NODE AT INITIAL STAGE")
       nodeCron(initialNode, nodeVersion)
     } else {
-      mongoose.connection.db.dropCollection('nodes', function (err, result) {
-        return 0
-      });
       nodeVersion = node[0].node_info.version
       console.log("\t\t\tNODE DOC FOUND WITH VERSION:\t",nodeVersion)
+      mongoose.connection.db.dropCollection('nodes', function (err, result) {
+        console.log("\t\t\tNODE COLLECTION DELETED")
+        return 0
+      });
       nodeCron(initialNode, nodeVersion)
     }
   },
@@ -89,7 +93,7 @@ module.exports = {
     } else {
       initialTxs = false
       console.log("\t\t\tTRANSACTIONS FOUND")
-      minHeight = parseInt(txs[0].height) + 1
+      minHeight = parseInt(txs[0].height)
       txsCron(minHeight, initialTxs)
     }
   },
