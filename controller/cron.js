@@ -33,8 +33,8 @@ module.exports = {
       let blockHeight = 3540000
       blockCron(blockHeight)
     } else {
-      let blockHeight = parseInt(prev[0].block.header.height)+1
-      console.log("\t\t\tBLOCK DOC FOUND WIT MAX COUNT: ", blockHeight-1)
+      let blockHeight = parseInt(prev[0].block.header.height) + 1
+      console.log("\t\t\tBLOCK DOC FOUND WIT MAX COUNT: ", blockHeight - 1)
       blockCron(blockHeight)
     }
   },
@@ -48,8 +48,7 @@ module.exports = {
     if (!supp) {
       console.log("SUPPLY AT INITIAL POINT")
       supplyCron(initialSupply, tempSupply)
-    } 
-    else {
+    } else {
       tempSupply = supp.height
       console.log("\t\t\tSUPPLY DOC FOUND HEIGHT: ", parseInt(tempSupply))
       mongoose.connection.db.dropCollection('supplies', function (err, result) {
@@ -57,7 +56,7 @@ module.exports = {
         return 0
       });
       supplyCron(initialSupply, tempSupply)
-      
+
     }
   },
 
@@ -72,7 +71,7 @@ module.exports = {
       nodeCron(initialNode, nodeVersion)
     } else {
       nodeVersion = node[0].node_info.version
-      console.log("\t\t\tNODE DOC FOUND WITH VERSION:\t",nodeVersion)
+      console.log("\t\t\tNODE DOC FOUND WITH VERSION:\t", nodeVersion)
       mongoose.connection.db.dropCollection('nodes', function (err, result) {
         console.log("\t\t\tNODE COLLECTION DELETED")
         return 0

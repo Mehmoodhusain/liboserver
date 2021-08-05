@@ -28,27 +28,25 @@ module.exports = {
         done = false
         await fetch(`http://18.206.253.182:1300/supply/total`)
           .then(res => res.json())
-          .then(async function(json) {
-            if(json.height!=previousHeight){
-                let supp = await Supply.findOne()
-                console.log("SUPPLY HEIGHT:", parseInt(json.height))
-                let obj = new Supply(json)
-                if(supp){
-                  await Supply.findByIdAndUpdate(
-                    { _id: supp._id },
-                    {
-                      $set: {
-                        height: obj.height,
-                        result: obj.result
-                      }
-                    }
-                  );
-                }
-                else
-                  obj.save()
-                previousHeight = json.height
+          .then(async function (json) {
+            if (json.height != previousHeight) {
+              let supp = await Supply.findOne()
+              console.log("SUPPLY HEIGHT:", parseInt(json.height))
+              let obj = new Supply(json)
+              if (supp) {
+                await Supply.findByIdAndUpdate({
+                  _id: supp._id
+                }, {
+                  $set: {
+                    height: obj.height,
+                    result: obj.result
+                  }
+                });
+              } else
+                obj.save()
+              previousHeight = json.height
             }
-              done = true
+            done = true
           })
           .catch(err => console.log("ERROR IN SUPPLY CRON\t", err.message))
       }
