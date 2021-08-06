@@ -30,7 +30,7 @@ module.exports = {
       _id: -1
     }).limit(1);
     if (prev.length == 0) {
-      let blockHeight = 3540000
+      let blockHeight = 0
       blockCron(blockHeight)
     } else {
       let blockHeight = parseInt(prev[0].block.header.height) + 1

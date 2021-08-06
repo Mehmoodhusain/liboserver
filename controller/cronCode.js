@@ -32,7 +32,7 @@ module.exports = {
           .then(async function (json) {
             if (json.height != previousHeight) {
               let supp = await Supply.findOne()
-              console.log("SUPPLY HEIGHT:", parseInt(json.height))
+              //console.log("SUPPLY HEIGHT:", parseInt(json.height))
               let obj = new Supply(json)
               if (supp) {
                 await Supply.findByIdAndUpdate({
