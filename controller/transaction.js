@@ -23,67 +23,53 @@ module.exports = {
           _id: -1
         },
       };
-      let blk = await Block.findOne({
-        'block.header.height': req.query.block
-      })
-      if (blk) {
-        Transaction.paginate({
-          "height": req.query.block
-        }, options, function (err, result) {
-          if (result.docs.length > 0)
-            return res.status(200).send({
-              Message: "txs with block height and pagination",
-              Height: parseInt(blk.block.header.height),
-              Transactions: result.docs.length,
-              Validator_Hash: blk.block.header.validators_hash,
-              Proposer_Hash: blk.block.header.validators_hash,
-              Data: result.docs
-            });
-          else
-            return res.status(404).send({
-              Message: "Transactions 5Not Found"
-            })
-        });
-      } else {
-        return res.status(404).send({
-          Message: "Transactions 5Not Found"
-        })
-      }
-
+      Transaction.paginate({
+        "height": parseInt(req.query.block)
+      }, options, function (err, result) {
+        if (result.docs.length > 0)
+          return res.status(200).send({
+            Message: "txs with block height and pagination",
+            total_count: result.totalDocs,
+            count: result.docs.length,
+            page_number: result.page,
+            page_total: result.totalPages,
+            limit: result.limit,
+            txs: result.docs
+          });
+        else
+          return res.status(404).send({
+            Message: "Transactions 5Nt Found"
+          })
+      });
     } else if (req.query.block) { // SEARCH BY BLOCK HEIGHT
       const options = {
         page: 1,
-        limit: 10,
+        limit: 10000,
         sort: {
           _id: -1
         },
       };
-      let blk = await Block.findOne({
-        'block.header.height': req.query.block
-      })
-      if (blk) {
-        Transaction.paginate({
-          "height": req.query.block
-        }, options, function (err, result) {
-          if (result.docs.length > 0)
-            return res.status(200).send({
-              Message: "txs with block height",
-              Height: parseInt(blk.block.header.height),
-              Transactions: result.docs.length,
-              Validator_Hash: blk.block.header.validators_hash,
-              Proposer_Hash: blk.block.header.validators_hash,
-              Data: result.docs
-            });
-          else
-            return res.status(404).send({
-              Message: "Transactions 5Not Found"
-            })
-        });
-      } else {
-        return res.status(404).send({
-          Message: "Transactions 5Not Found"
-        })
-      }
+      Transaction.paginate({
+        "height": req.query.block
+      }, options, function (err, result) {
+        if (result.docs.length > 0)
+          return res.status(200).send({
+            Message: "txs with block height",
+            total_count: result.totalDocs,
+            count: result.docs.length,
+            page_number: result.page,
+            page_total: result.totalPages,
+            limit: result.limit,
+            txs: result.docs
+          });
+        else
+          return res.status(404).send({
+            Message: "Transactions 5Not Found"
+          })
+      });
+
+
+
 
     } else if (req.query.page && req.query.limit) { // SEARCH BY PAGINATION
       const options = {
@@ -106,13 +92,13 @@ module.exports = {
           });
         else
           return res.status(404).send({
-            Message: "Transactions Not Found"
+            Message: "Transactions ..Not Found"
           })
       });
     } else { // NOTHING
       const options = {
         page: 1,
-        limit: 10,
+        limit: 10000,
         sort: {
           _id: -1
         },
@@ -130,7 +116,7 @@ module.exports = {
           });
         else
           return res.status(404).send({
-            Message: "Transactions Not Found"
+            Message: "Transactions Not.. Found"
           })
       });
     }

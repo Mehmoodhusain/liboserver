@@ -1,11 +1,31 @@
 // IMPORT FILES
-const {errorFunction} = require("../middleware/errorFunction");
-const {latestBlock, blockByHeight, blocks} = require("../controller/block");
-const {nodes} = require("../controller/node");
-const {supplyTotal, supplyFlby, supplyFpsix} = require("../controller/supply");
-const {transactions, transactionByHash } = require("../controller/transaction");
-const { searchByAddress } = require("../controller/address")
-const { authAccountAddress ,  bankBalanceAddress } = require("../controller/account")
+const {
+    errorFunction
+} = require("../middleware/errorFunction");
+const {
+    latestBlock,
+    blockByHeight,
+    blocks
+} = require("../controller/block");
+const {
+    nodes
+} = require("../controller/node");
+const {
+    supplyTotal,
+    supplyFlby,
+    supplyFpsix
+} = require("../controller/supply");
+const {
+    transactions,
+    transactionByHash
+} = require("../controller/transaction");
+const {
+    searchByAddress
+} = require("../controller/address")
+const {
+    authAccountAddress,
+    bankBalanceAddress
+} = require("../controller/account")
 
 // IMPORT LIBRARIES
 const router = require("express").Router();
@@ -23,7 +43,6 @@ router.get("/txs", errorFunction(transactions));
 router.get("/txs/:txHash", errorFunction(transactionByHash));
 router.get("/auth/accounts/:address", errorFunction(authAccountAddress));
 router.get("/bank/balances/:address", errorFunction(bankBalanceAddress));
-
 router.get("/addresses/:address", errorFunction(searchByAddress));
 
 // EXPORT ROUTER

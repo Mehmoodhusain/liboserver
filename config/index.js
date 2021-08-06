@@ -1,4 +1,6 @@
-const { Socket } = require("socket.io");
+const {
+  Socket
+} = require("socket.io");
 
 const config = {
   SERVER_PORT: 3000,

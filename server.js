@@ -1,8 +1,15 @@
 // IMPORT FILES
-const { getConnection } = require("./connection/connection");
+const {
+  getConnection
+} = require("./connection/connection");
 const configPort = require("./config/index");
 const expServer = require("./express")
-const { block, supply, node, transaction} = require("./controller/cron");
+const {
+  block,
+  supply,
+  node,
+  transaction
+} = require("./controller/cron");
 
 // CONNECTION TO MONGOOSE
 getConnection();

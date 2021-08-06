@@ -38,6 +38,20 @@ module.exports = {
       blockCron(blockHeight)
     }
   },
+  // block: async function () {
+  //   let prev = await Block.find().sort({
+  //     _id: -1
+  //   }).limit(1);
+  //   let achieved = await Block.countDocuments()
+  //   if (prev.length == 0) {
+  //     let blockHeight = 0
+  //     blockCron(blockHeight, achieved)
+  //   } else {
+  //     let blockHeight = parseInt(prev[0].block.header.height)
+  //     console.log("\t\t\tBLOCK DOC FOUND WIT MAX COUNT: ", blockHeight)
+  //     blockCron(blockHeight, achieved)
+  //   }
+  // },
 
   supply: async function () {
     let tempSupply = -1

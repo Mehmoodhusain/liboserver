@@ -2,8 +2,7 @@
 const mongoose = require('mongoose');
 
 // SCHEMA
-const Node = mongoose.model('node', new mongoose.Schema(
-  {
+const Node = mongoose.model('node', new mongoose.Schema({
   node_info: {
     protocol_version: {
       p2p: String,
@@ -30,8 +29,7 @@ const Node = mongoose.model('node', new mongoose.Schema(
     build_tags: String,
     go: String
   },
-}
-));
+}));
 module.exports = {
   Node
 }

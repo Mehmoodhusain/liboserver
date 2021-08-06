@@ -1,6 +1,8 @@
 // IMPORT FILES
 const config = require("../config/index")
-const {Node} = require("./node")
+const {
+  Node
+} = require("./node")
 
 // IMPORT LIBRARIES
 const mongoose = require('mongoose');
@@ -87,7 +89,9 @@ const block = new mongoose.Schema({
         },
       },
       precommits: [{
-        type: {type: Number},
+        type: {
+          type: Number
+        },
         height: String,
         round: String,
         block_id: {
