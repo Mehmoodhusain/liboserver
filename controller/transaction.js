@@ -44,7 +44,7 @@ module.exports = {
     } else if (req.query.block) { // SEARCH BY BLOCK HEIGHT
       const options = {
         page: 1,
-        limit: 10000,
+        limit: 10,
         sort: {
           _id: -1
         },
@@ -98,7 +98,7 @@ module.exports = {
     } else { // NOTHING
       const options = {
         page: 1,
-        limit: 10000,
+        limit: 10,
         sort: {
           _id: -1
         },

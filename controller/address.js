@@ -77,7 +77,7 @@ module.exports = {
     } else if (queryArray.length > 0) { // NO PAGINATION
       const options = {
         page: 1,
-        limit: 10000,
+        limit: 10,
         sort: {
           _id: -1
         },
@@ -103,7 +103,7 @@ module.exports = {
     } else {
       const options = { // WITH NO QUERY
         page: 1,
-        limit: 100000,
+        limit: 10,
         sort: {
           _id: -1
         },
