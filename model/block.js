@@ -109,6 +109,8 @@ const block = new mongoose.Schema({
     }
   },
 });
+
+// EMIT AFTER EVERYTIME A BLOCK IS SAVED
 block.post('save', async function (doc) {
   let lastFiveBlocks = await Block.find({}).sort({
     _id: -1

@@ -10,6 +10,7 @@ let mongoose = require("mongoose");
 module.exports = {
   searchByAddress: async function (req, res) {
 
+    // ADDING QUERIES TO ARRAY TO MAKE IT WORK FOR DYNAMIC QUERIES
     let queryArray = []
     if (req.query.type == 'send')
       queryArray.push({
@@ -46,6 +47,7 @@ module.exports = {
         }
       })
 
+    // REQUEST HANDLER
     if (req.query.page && req.query.limit && queryArray.length > 0) { // PAGINATION
       const options = {
         page: req.query.page,

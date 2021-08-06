@@ -15,6 +15,7 @@ let config = require("./config/index")
 const socketio = require("socket.io")
 const io = socketio(server)
 
+// SOCKET.IO CODE
 config.Emmiter = io
 io.on('connection', async function (socket) {
 

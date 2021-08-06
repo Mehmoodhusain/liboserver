@@ -75,6 +75,8 @@ const transaction = new mongoose.Schema({
     }, ]
   }, ]
 });
+
+// EMIT AFTER EVERYTIME A TRANSACTION IS SAVED
 transaction.post('save', async function (doc) {
   let lastFiveTransactions = await Transaction.find({}).sort({
     _id: -1

@@ -2,6 +2,8 @@
 const {
   Supply
 } = require("../model/supply");
+
+// IMPORT LIBRARIES
 const fetch = require('node-fetch');
 
 // SUPPLY ROUTE FUNCTION
