@@ -28,7 +28,7 @@ module.exports = {
       }, options, function (err, result) {
         if (result.docs.length > 0)
           return res.status(200).send({
-            Message: "txs with block height and pagination",
+            //Message: "txs with block height and pagination",
             total_count: result.totalDocs,
             count: result.docs.length,
             page_number: result.page,
@@ -38,7 +38,7 @@ module.exports = {
           });
         else
           return res.status(404).send({
-            Message: "Transactions 5Nt Found"
+            Message: "Transactions Not Found"
           })
       });
     } else if (req.query.block) { // SEARCH BY BLOCK HEIGHT
@@ -54,7 +54,7 @@ module.exports = {
       }, options, function (err, result) {
         if (result.docs.length > 0)
           return res.status(200).send({
-            Message: "txs with block height",
+            //Message: "txs with block height",
             total_count: result.totalDocs,
             count: result.docs.length,
             page_number: result.page,
@@ -64,7 +64,7 @@ module.exports = {
           });
         else
           return res.status(404).send({
-            Message: "Transactions 5Not Found"
+            Message: "Transactions Not Found"
           })
       });
 
@@ -82,7 +82,7 @@ module.exports = {
       Transaction.paginate({}, options, function (err, result) {
         if (result.docs.length > 0)
           return res.status(200).send({
-            Message: "with pagination",
+            //Message: "with pagination",
             total_count: result.totalDocs,
             count: result.docs.length,
             page_number: result.page,
@@ -92,7 +92,7 @@ module.exports = {
           });
         else
           return res.status(404).send({
-            Message: "Transactions ..Not Found"
+            Message: "Transactions Not Found"
           })
       });
     } else { // NOTHING
@@ -106,7 +106,7 @@ module.exports = {
       Transaction.paginate({}, options, function (err, result) {
         if (result.docs.length > 0)
           return res.status(200).send({
-            Message: "txs only",
+            //Message: "txs only",
             total_count: result.totalDocs,
             count: result.docs.length,
             page_number: result.page,
@@ -116,7 +116,7 @@ module.exports = {
           });
         else
           return res.status(404).send({
-            Message: "Transactions Not.. Found"
+            Message: "Transactions Not Found"
           })
       });
     }

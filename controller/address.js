@@ -24,7 +24,7 @@ module.exports = {
       queryArray.push({
         "tx.value.msg.value.amount.denom": req.query.coin
       })
-    if (req.query.from)
+      if (req.query.from)
       queryArray.push({
         $and: [{
             timestamp: {
@@ -39,16 +39,26 @@ module.exports = {
             }]
           }
         ]
-      })
-    if (req.query.to)
+      })  
+      if (req.query.to)
       queryArray.push({
-        timestamp: {
-          $lte: req.query.to
-        }
+        $and: [{
+            timestamp: {
+              $lte: req.query.to
+            }
+          },
+          {
+            $or: [{
+              "tx.value.msg.value.from_address": req.params.address
+            }, {
+              "tx.value.msg.value.to_address": req.params.address
+            }]
+          }
+        ]
       })
 
     // REQUEST HANDLER
-    if (req.query.page && req.query.limit && queryArray.length > 0) { // PAGINATION
+    if (req.query.page && req.query.limit && queryArray.length > 0) { // PAGINATION AND QUERIES
       const options = {
         page: req.query.page,
         limit: req.query.limit,
@@ -61,7 +71,7 @@ module.exports = {
       }, options, function (err, result) {
         if (result.docs.length > 0)
           return res.status(200).send({
-            Message: "pagination",
+            //Message: "queries with pagination",
             total_count: result.totalDocs,
             count: result.docs.length,
             page_number: result.page,
@@ -71,10 +81,10 @@ module.exports = {
           });
         else
           return res.status(404).send({
-            Message: "Transactions 1Not Found"
+            Message: "Transactions Not Found"
           })
       });
-    } else if (queryArray.length > 0) { // NO PAGINATION
+    } else if (queryArray.length > 0) { // NO PAGINATION AND QUERIES
       const options = {
         page: 1,
         limit: 10,
@@ -87,7 +97,7 @@ module.exports = {
       }, options, function (err, result) {
         if (result.docs.length > 0)
           return res.status(200).send({
-            Message: "no pagination",
+            //Message: "queries without pagination",
             total_count: result.totalDocs,
             count: result.docs.length,
             page_number: result.page,
@@ -97,11 +107,38 @@ module.exports = {
           });
         else
           return res.status(404).send({
-            Message: "Transactions 1Not Found"
+            Message: "Transactions Not Found"
           })
       });
-    } else {
-      const options = { // WITH NO QUERY
+    } else if(req.query.page && req.query.limit){ // ONLY PAGINATION
+      const options = {
+        page: req.query.page,
+        limit: req.query.limit,
+        sort: {
+          _id: -1
+        },
+      };
+      Transaction.paginate({
+        $or: [{
+          "tx.value.msg.value.from_address": req.params.address
+        }, {
+          "tx.value.msg.value.to_address": req.params.address
+        }]
+      }, options, function (err, result) {
+        if (result.docs.length > 0)
+          return res.status(200).send({
+            //Message: "pagination without query",
+            Length: result.docs.length,
+            Data: result.docs
+          });
+        else
+          return res.status(404).send({
+            Message: "Transactions Not Found"
+          })
+      });
+    }
+    else{ // NOTHING
+      const options = {
         page: 1,
         limit: 10,
         sort: {
@@ -117,13 +154,13 @@ module.exports = {
       }, options, function (err, result) {
         if (result.docs.length > 0)
           return res.status(200).send({
-            Message: "nothing",
+            //Message: "nothing",
             Length: result.docs.length,
             Data: result.docs
           });
         else
           return res.status(404).send({
-            Message: "Transactions 0Not Found"
+            Message: "Transactions Not Found"
           })
       });
     }
